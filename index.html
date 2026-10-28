@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-md-2 sidebar text-white vh-100 p-3">
+
+            <h4 class="fw-bold mt-5 mb-5 text-center"><i class="fa-solid fa-address-book"></i> Phonebook</h4>
+            <a href="" class="menu-item active mt-5  gap-2 text-center">
+                <i class="fa-solid fa-house"></i> All Contacts</a>
+            <a href="" class="menu-item gap-2 text-center" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                <i class="fa-solid fa-circle-plus"></i> Add Contact</a>
+
+        </div>
+        <div class="col-md-10 main-content ">
+
+       
+
+            <section>
+                <div class="mt-5 ml-2">
+                    <h2 class="fw-bold">All Contacts</h2>
+                    <p>View, update, delete your contacts</p>
+                </div>
+
+            </section>
+            <section>
+                <div class="row mt-2 mb-4">
+                    <div class="col-md-8">
+                        <form>
+                            <input class="form-control me-2" id="searchBar" type="search" placeholder="Search by name or phonenumber" onkeyup="searchContacts()"
+                                aria-label="Search">
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary shadow-sm text-white" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">+ Add New Contact</button>
+
+                    </div>
+
+                </div>
+            </section>
+            <section>
+                <table class="table align-middle ">
+                    <thead class="table-success ">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tBody">
+                       
+
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- add contact Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5 " id="exampleModalLabel">Add New Contact</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="mb-3">
+                            <label for="name"><i class="fa-slab-duo fa-regular fa-user"></i> Name *</label>
+                            <input type="text" class="form-control" id="name" name="name"><br>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone"><i class="fa-duotone fa-regular fa-phone"></i> Phone *</label>
+                            <input type="number" class="form-control" id="phone" name="phone"><br>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email"><i class="fa-slab-duo fa-regular fa-envelope"></i> Email *</label>
+                            <input type="email" class="form-control" id="email" name="email"><br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewContact()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- update contact Modal -->
+    <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="UpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5 " id="UpdateModalLabel">Add New Contact</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <input type="hidden" id="contactId">
+                        <div class="mb-3">
+                            <label for="name"><i class="fa-slab-duo fa-regular fa-user"></i> Name *</label>
+                            <input type="text" class="form-control" id="updatename" name="name"><br>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone"><i class="fa-duotone fa-regular fa-phone"></i> Phone *</label>
+                            <input type="text" class="form-control" id="updatephone" name="phone"><br>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email"><i class="fa-slab-duo fa-regular fa-envelope"></i> Email *</label>
+                            <input type="email" class="form-control" id="updateemail" name="email"><br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveChanges()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
